@@ -1,53 +1,74 @@
 <template>
-  <div
-    class="match-info"
-    style="
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10%;
-      padding-left: 5%;
-      border-left: 5px solid #eb5031;
-    "
-  >
-    <div
-      class="team-wrapper"
-      :style="homeScore > awayScore ? { fontWeight: 'bold' } : {}"
-    >
-      <div class="team-logo">
-        <img class="logo" src="./homeys.png" alt="Logo" />
-      </div>
-      <div class="team-name-wrapper">
-        <p class="team-name">{{ homeTeam }}</p>
-        <p>Home</p>
-      </div>
-      <div class="score">
-        <p class="">{{ homeScore !== null ? homeScore : '' }}</p>
-      </div>
-    </div>
-    <div
-      class="team-wrapper"
-      :style="awayScore > homeScore ? { fontWeight: 'bold' } : {}"
-    >
-      <div class="team-logo">
-        <img class="logo" src="./awaygoodteam.png" alt="Logo" />
-      </div>
-      <div class="team-name-wrapper">
-        <p class="team-name">{{ awayTeam }}</p>
-        <p>Home</p>
-      </div>
-      <div class="score">
-        <p class="">{{ awayScore !== null ? awayScore : '' }}</p>
-      </div>
-    </div>
-    <p class="date-time">{{ date }}</p>
-    <p class="time-time">{{ time }}</p>
-    <div class="rsvp">
-      <button v-if="!hasRsvped" class="btn btn-primary">RSVP</button>
-      <div v-else class="checkmark-wrapper">
-        <span class="checkmark">&#10003;</span>
-      </div>
-    </div>
-  </div>
+  <q-card class="match-info">
+    <q-card-section class="q-pa-xs">
+      <q-item class="team-wrapper">
+        <q-item-section avatar>
+          <q-img :src="homeTeamLogo" alt="Logo" class="team-logo" />
+        </q-item-section>
+        <q-item-section class="team-details">
+          <q-item-label
+            :class="{ 'extra-bold-text': homeScore > awayScore }"
+            class="team-name"
+          >
+            {{ homeTeam }}
+          </q-item-label>
+          <q-item-label caption class="home-away-label">Home</q-item-label>
+        </q-item-section>
+        <q-item-section side class="score-section">
+          <q-item-label
+            :class="{ 'extra-bold-text': homeScore > awayScore }"
+            class="score"
+          >
+            {{ homeScore !== null ? homeScore : '' }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-card-section>
+    <q-card-section class="q-pa-xs">
+      <q-item class="team-wrapper">
+        <q-item-section avatar>
+          <q-img :src="awayTeamLogo" alt="Logo" class="team-logo" />
+        </q-item-section>
+        <q-item-section class="team-details">
+          <q-item-label
+            :class="{ 'extra-bold-text': awayScore > homeScore }"
+            class="team-name"
+          >
+            {{ awayTeam }}
+          </q-item-label>
+          <q-item-label caption class="home-away-label">Away</q-item-label>
+        </q-item-section>
+        <q-item-section side class="score-section">
+          <q-item-label
+            :class="{ 'extra-bold-text': awayScore > homeScore }"
+            class="score"
+          >
+            {{ awayScore !== null ? awayScore : '' }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-card-section>
+    <q-card-section class="q-pa-xs">
+      <q-item class="datetime-wrapper">
+        <q-item-section class="datetime-details">
+          <q-item-label>{{ date }}</q-item-label>
+          <q-item-label>{{ time }}</q-item-label>
+        </q-item-section>
+        <q-item-section side class="rsvp-section">
+          <q-btn v-if="!hasRsvped" size="sm" color="primary" @click="rsvp"
+            >RSVP</q-btn
+          >
+          <q-icon
+            v-else
+            name="check_circle"
+            color="green"
+            size="md"
+            class="checkmark"
+          />
+        </q-item-section>
+      </q-item>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -83,67 +104,103 @@ export default {
     },
     homeTeamLogo: {
       type: String,
-      default: 'assets/homeys.png',
+      default: 'src/components/homeys.png',
     },
     awayTeamLogo: {
       type: String,
-      default: 'assets/awaygoodteam.png',
+      default: 'src/components/awaygoodteam.png',
+    },
+  },
+  methods: {
+    rsvp() {
+      // RSVP logic here
     },
   },
 };
 </script>
 
 <style scoped>
+.match-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2%;
+  border-left: 5px solid #eb5031;
+  margin: 2%;
+}
 .team-wrapper {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2%;
-}
-.match-info {
-  display: flex;
-  justify-content: center;
-  align-items: left;
+  align-items: center;
+  margin-bottom: 0; /* Removed margin */
+  padding: 2vw 0; /* Responsive padding */
 }
 .team-logo {
-  width: 20%;
-  display: flex;
-  justify-content: left;
-  align-items: center;
+  width: 8vw; /* Responsive size */
+  height: 8vw; /* Responsive size */
   border-radius: 10%;
 }
-.logo {
-  width: 80%;
-  border-radius: 10%;
-}
-.team-name-wrapper {
-  width: 70%;
+.team-details {
+  flex-grow: 1; /* Allow to take up remaining space */
+  padding-left: 2vw; /* Responsive padding */
 }
 .team-name {
-  margin-bottom: 0px;
-  margin-top: 0px;
-  font-size: 120%;
+  font-size: 3.5vw; /* Responsive font size */
+}
+.home-away-label {
+  font-size: 2.5vw; /* Responsive font size */
+}
+.extra-bold-text {
+  font-weight: 900; /* Extra bold font weight */
+  color: black; /* Ensure the text color is black */
+}
+.score-section {
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-left: auto; /* Push to the right */
+  text-align: right; /* Align score to the right */
+  padding-right: 2vw; /* Responsive padding */
 }
 .score {
-  width: 10%;
-  align-items: center;
-  justify-content: center;
+  text-align: right; /* Align score to the right */
+  color: black; /* Ensure the text color is black */
+  font-size: 3.5vw; /* Responsive font size */
+}
+.datetime-wrapper {
   display: flex;
-}
-.date-time {
-  margin-bottom: 0px;
-}
-.rsvp {
-  width: 20%;
-  justify-content: right;
-  align-items: right;
-  right: 0;
-}
-.checkmark-wrapper {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 2vw 0; /* Responsive padding */
+}
+.datetime-details {
+  flex-grow: 1; /* Allow to take up remaining space */
+}
+.rsvp-section {
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-left: auto; /* Push to the right */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 2vw; /* Responsive padding */
 }
 .checkmark {
-  color: green;
-  font-size: 24px;
+  font-size: 4vw; /* Responsive font size */
+}
+
+@media (min-width: 768px) {
+  .team-logo {
+    width: 4vw; /* Smaller size on larger screens */
+    height: 4vw;
+  }
+  .team-name {
+    font-size: 2vw; /* Adjust font size */
+  }
+  .home-away-label {
+    font-size: 1.5vw; /* Adjust font size */
+  }
+  .score {
+    font-size: 2vw; /* Adjust font size */
+  }
+  .checkmark {
+    font-size: 2.5vw; /* Adjust font size */
+  }
 }
 </style>
