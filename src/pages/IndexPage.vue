@@ -1,47 +1,78 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div>
+    <!-- <h1>Schedule</h1> -->
+    <GameInfo
+      v-for="(game, index) in games"
+      :key="index"
+      :homeTeam="game.homeTeam"
+      :awayTeam="game.awayTeam"
+      :date="game.date"
+      :time="game.time"
+      :hasRsvped="game.hasRsvped"
+      :homeScore="game.homeScore"
+      :awayScore="game.awayScore"
+      :homeLogo="game.homeLogo"
+      :awayLogo="game.awayLogo"
+    />
+  </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+<script>
+import GameInfo from 'components/GameInfo.vue';
 
-defineOptions({
-  name: 'IndexPage'
-});
-
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
+export default {
+  components: {
+    GameInfo,
   },
-  {
-    id: 2,
-    content: 'ct2'
+  data() {
+    return {
+      games: [
+        {
+          homeTeam: 'The Homeys',
+          awayTeam: 'A Way Good Team',
+          date: 'Wed, Jan 25, 2024',
+          time: '9:00 - 10:15 PM',
+          hasRsvped: false,
+          homeScore: 10,
+          awayScore: 1,
+          homeLogo: 'assets/homeys.png',
+          awayLogo: 'assets/awaygoodteam.png',
+        },
+        {
+          homeTeam: 'Team Alpha',
+          awayTeam: 'Team Beta',
+          date: 'Thu, Jan 26, 2024',
+          time: '8:00 - 9:15 PM',
+          hasRsvped: true,
+          homeScore: 5,
+          awayScore: 4,
+          homeLogo: 'assets/homeys.png',
+          awayLogo: 'assets/awaygoodteam.png',
+        },
+        {
+          homeTeam: 'Squad Goals',
+          awayTeam: 'Dream Team',
+          date: 'Fri, Jan 27, 2024',
+          time: '7:00 - 8:15 PM',
+          hasRsvped: true,
+          homeScore: 5,
+          awayScore: 6,
+          homeLogo: 'assets/homeys.png',
+          awayLogo: 'assets/awaygoodteam.png',
+        },
+        {
+          homeTeam: 'Champions',
+          awayTeam: 'Contenders',
+          date: 'Sat, Jan 28, 2024',
+          time: '6:00 - 7:15 PM',
+          hasRsvped: false,
+          homeScore: 7,
+          awayScore: 8,
+          homeLogo: 'assets/homeys.png',
+          awayLogo: 'assets/awaygoodteam.png',
+        },
+      ],
+    };
   },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+};
 </script>
