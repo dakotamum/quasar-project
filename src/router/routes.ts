@@ -6,12 +6,9 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'rsvp', component: () => import('pages/RsvpPage.vue') }, // Add this line
+      { path: 'rsvp', component: () => import('pages/RsvpPage.vue') }, // Ensure this path is correct
     ],
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

@@ -55,7 +55,7 @@
           <q-item-label>{{ time }}</q-item-label>
         </q-item-section>
         <q-item-section side class="rsvp-section">
-          <q-btn v-if="!hasRsvped" size="sm" color="primary" @click="rsvp"
+          <q-btn v-if="!hasRsvped" size="sm" color="primary" @click="goToRsvp"
             >RSVP</q-btn
           >
           <q-icon
@@ -112,8 +112,8 @@ export default {
     },
   },
   methods: {
-    rsvp() {
-      // RSVP logic here
+    goToRsvp() {
+      this.$router.push({ path: '/rsvp' });
     },
   },
 };
