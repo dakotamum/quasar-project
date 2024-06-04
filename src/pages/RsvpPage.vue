@@ -10,164 +10,135 @@
     :homeTeamLogo="homeTeamLogo"
     :awayTeamLogo="awayTeamLogo"
   />
-  <q-card class="scoreKeeperRefereeSection">
+  <q-card class="q-mb-md">
     <q-card-section>
-      <span class="label-bold">Scorekeeper:</span> Ur mom
-    </q-card-section>
-    <q-card-section>
-      <span class="label-bold">Referee:</span> yo momma
-    </q-card-section>
-    <q-card-section>
-      <span class="label-bold">Referee:</span> your mother
+      <div><strong>Scorekeeper:</strong> Ur mom</div>
+      <div><strong>Referee:</strong> yo momma</div>
+      <div><strong>Referee:</strong> your mother</div>
     </q-card-section>
   </q-card>
-  <q-card class="rsvpInfo">
+  <q-card class="q-mb-md">
     <q-card-section>
-      <span class="label-bold">RSVP</span>
+      <strong>RSVP</strong>
     </q-card-section>
-    <div class="q-pa-md column q-col-gutter-sm">
-      <q-btn-group vertical>
-        <q-btn-toggle
+    <q-card-section>
+      <div class="q-pa-lg">
+        <q-option-group
           v-model="selectedItems"
-          no-caps
-          toggle-color="green"
-          color="white"
-          text-color="black"
           :options="options"
-          unelevated
+          color="red"
+          left-label
         />
-      </q-btn-group>
-    </div>
+      </div>
+    </q-card-section>
   </q-card>
-  <q-card>
-    <q-expansion-item
-      label="Team RSVP"
-      expand-separator
-      header-class="team-rsvp-header"
-    >
-      <q-card-section class="goingSection">
-        <q-card-section class="section-header">
-          <q-icon name="check_circle" color="green" size="32px" />
-          <span class="going-label">Going</span>
-        </q-card-section>
-        <q-card-section
+  <q-card class="q-mb-md">
+    <q-expansion-item label="Team RSVP" expand-separator>
+      <q-card-section>
+        <q-icon name="check_circle" color="green" size="32px" />
+        <strong>Going</strong>
+        <div
           v-for="player in playersGoing"
           :key="player.name"
-          class="player-item"
+          class="q-ml-md q-mt-sm"
         >
           <q-avatar size="32px" class="q-mr-sm">
             <img :src="player.image" alt="player profile" />
           </q-avatar>
           {{ player.name }}
-        </q-card-section>
+        </div>
       </q-card-section>
-      <q-card-section class="subsSection">
-        <q-card-section>
-          <span class="subs-label">Subs</span>
-        </q-card-section>
-        <q-card-section
+      <q-card-section>
+        <strong>Subs</strong>
+        <div
           v-for="(sub, index) in subs"
           :key="index"
-          class="sub-item"
+          class="q-mt-sm q-ml-md q-row no-wrap items-center"
         >
           <q-select
             v-model="sub.selectedUser"
             :options="availableUsers"
             label="Select User"
-            class="q-mr-sm sub-dropdown"
+            dense
+            class="q-mr-sm"
           />
           <q-btn dense flat icon="close" @click="removeSub(index)" />
-        </q-card-section>
-        <q-card-section>
-          <q-btn
-            label="Add Sub"
-            @click="addSub"
-            color="primary"
-            class="q-mt-sm"
-          />
-        </q-card-section>
+        </div>
+        <q-btn
+          label="Add Sub"
+          @click="addSub"
+          color="primary"
+          class="q-mt-sm q-ml-md"
+        />
       </q-card-section>
-      <q-card-section class="notGoingSection">
-        <q-card-section class="section-header">
-          <q-icon name="cancel" color="red" size="32px" />
-          <span class="not-going-label">Not Going</span>
-        </q-card-section>
-        <q-card-section
+      <q-card-section>
+        <q-icon name="cancel" color="red" size="32px" />
+        <strong>Not Going</strong>
+        <div
           v-for="player in playersNotGoing"
           :key="player.name"
-          class="player-item"
+          class="q-ml-md q-mt-sm"
         >
           <q-avatar size="32px" class="q-mr-sm">
             <img :src="player.image" alt="player profile" />
           </q-avatar>
           {{ player.name }}
-        </q-card-section>
+        </div>
       </q-card-section>
-      <q-card-section class="maybeSection">
-        <q-card-section class="section-header">
-          <q-icon name="radio_button_unchecked" color="yellow" size="32px" />
-          <span class="maybe-label">Maybe</span>
-        </q-card-section>
-        <q-card-section
+      <q-card-section>
+        <q-icon :name="maybeIcon" color="yellow" size="32px" />
+        <strong>Maybe</strong>
+        <div
           v-for="player in playersMaybe"
           :key="player.name"
-          class="player-item"
+          class="q-ml-md q-mt-sm"
         >
           <q-avatar size="32px" class="q-mr-sm">
             <img :src="player.image" alt="player profile" />
           </q-avatar>
           {{ player.name }}
-        </q-card-section>
+        </div>
       </q-card-section>
-      <q-card-section class="noResponseSection">
-        <q-card-section class="section-header">
-          <q-icon name="radio_button_unchecked" color="gray" size="32px" />
-          <span class="no-response-label">No Response</span>
-        </q-card-section>
-        <q-card-section
+      <q-card-section>
+        <q-icon name="radio_button_unchecked" color="gray" size="32px" />
+        <strong>No Response</strong>
+        <div
           v-for="player in playersNoResponse"
           :key="player.name"
-          class="player-item"
+          class="q-ml-md q-mt-sm"
         >
           <q-avatar size="32px" class="q-mr-sm">
             <img :src="player.image" alt="player profile" />
           </q-avatar>
           {{ player.name }}
-        </q-card-section>
+        </div>
       </q-card-section>
     </q-expansion-item>
   </q-card>
   <q-card>
-    <q-expansion-item
-      label="Officiator RSVP"
-      expand-separator
-      header-class="officiator-rsvp-header"
-    >
-      <q-card-section class="officiatorsSection">
-        <q-card-section>
-          <span class="officiators-label">Officiators</span>
-        </q-card-section>
-        <q-card-section
+    <q-expansion-item label="Officiator RSVP" expand-separator>
+      <q-card-section>
+        <strong>Officiators</strong>
+        <div
           v-for="(official, index) in officials"
           :key="index"
-          class="official-item"
+          class="q-mt-sm q-ml-md q-row no-wrap items-center"
         >
           <q-select
             v-model="official.selectedUser"
             :options="availableUsers"
             label="Select Official"
-            class="q-mr-sm official-dropdown"
+            dense
+            class="q-mr-sm"
           />
           <q-btn dense flat icon="close" @click="removeOfficial(index)" />
-        </q-card-section>
-        <q-card-section>
-          <q-btn
-            label="Add Official"
-            @click="addOfficial"
-            color="primary"
-            class="q-mt-sm"
-          />
-        </q-card-section>
+        </div>
+        <q-btn
+          label="Add Official"
+          @click="addOfficial"
+          color="primary"
+          class="q-mt-sm q-ml-md"
+        />
       </q-card-section>
     </q-expansion-item>
   </q-card>
@@ -182,13 +153,14 @@ export default {
   },
   data() {
     return {
-      selectedItems: [],
+      selectedItems: 'four', // Setting default value to 'four' which corresponds to 'No response'
       options: [
         { label: 'I am going', value: 'one' },
         { label: 'I am not going', value: 'two' },
         { label: 'Maybe', value: 'three' },
         { label: 'No response', value: 'four' },
       ],
+      maybeIcon: 'img:src/assets/yellow-dot-icon.svg', // Use custom SVG icon
       playersGoing: [
         { name: 'Player 1', image: 'https://via.placeholder.com/32' },
         { name: 'Player 2', image: 'https://via.placeholder.com/32' },
@@ -273,61 +245,8 @@ export default {
 </script>
 
 <style scoped>
-.q-btn-toggle__content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-.q-btn-toggle__content .q-btn-toggle__button {
-  margin-bottom: 8px;
-}
-.label-bold {
-  font-weight: bold;
-}
-.section-header {
+.q-row {
   display: flex;
   align-items: center;
-}
-.goingSection .q-icon,
-.notGoingSection .q-icon,
-.maybeSection .q-icon,
-.noResponseSection .q-icon {
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.going-label,
-.not-going-label,
-.maybe-label,
-.no-response-label {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-.subs-label,
-.officiators-label {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-.player-item,
-.sub-item,
-.official-item {
-  display: flex;
-  align-items: center;
-  margin-left: 24px;
-}
-.q-avatar {
-  margin-right: 8px;
-}
-.q-mt-sm {
-  margin-top: 8px;
-}
-.sub-dropdown,
-.official-dropdown {
-  width: 200px;
-}
-.team-rsvp-header .q-item__label,
-.officiator-rsvp-header .q-item__label {
-  background-color: #ccdcfd !important;
-  font-size: 1.2em;
-  font-weight: bold;
 }
 </style>
